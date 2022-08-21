@@ -1,0 +1,40 @@
+{
+  "name": "express-mesto-gha",
+  "version": "1.0.0",
+  "description": "\"Mesto\" - это интерактивная страница, где пользователи могут публиковать фотографии. Создана в процессе изучения основ Java Script. Так же в работе применены расширенные возможности HTML и CSS, изученные в предыдущих спринтах. При создании проекта использовался графический редактор Figma. Файловая структура организована с помощью БЭМ.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rutaizm/express-mesto-gha.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rutaizm/express-mesto-gha/issues"
+  },
+  "homepage": "https://github.com/rutaizm/express-mesto-gha#readme",
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.19"
+  },
+  "keywords": [],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "celebrate": "^15.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-winston": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.0",
+    "validator": "^13.7.0",
+    "winston": "^3.8.1"
+  }
+}

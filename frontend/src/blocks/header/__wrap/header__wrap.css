@@ -1,0 +1,13 @@
+.header__wrap{
+    
+}
+
+@media screen and (min-width:320px) and (max-width:580px) {
+    .header__wrap {
+        min-width: 320px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px rgba(84, 84, 84, .7);
+    }
+}

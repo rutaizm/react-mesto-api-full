@@ -1,0 +1,15 @@
+.signin__register{
+    display: flex;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+@media screen and (min-width:320px) and (max-width:580px) {
+    .signin__register {
+        margin-top: 7px;
+    }
+}

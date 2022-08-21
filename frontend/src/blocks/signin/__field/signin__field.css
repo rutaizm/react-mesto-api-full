@@ -1,0 +1,23 @@
+.signin__field{
+    width: 358px;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 8px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    background-color: black;
+    -webkit-box-shadow: inset 0 0 0 50px black;
+    -webkit-text-fill-color: white;
+}
+
+@media screen and (min-width:320px) and (max-width:580px) {
+    .signin__field {
+        width: 238px;
+    }
+}

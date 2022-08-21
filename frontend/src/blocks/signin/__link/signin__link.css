@@ -1,0 +1,12 @@
+.signin__link{
+    display: flex;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-decoration: none;
+    margin-top: 14px;
+    margin-left: 3px;
+}
