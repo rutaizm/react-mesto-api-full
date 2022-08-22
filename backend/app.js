@@ -12,7 +12,7 @@ const routesUsers = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const { validationSignUp, validationSignIn } = require('./middlewares/validation');
-const { allowedCors } = require('./utils/allowedCors');
+// const { allowedCors } = require('./utils/allowedCors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -21,10 +21,10 @@ const auth = require('./middlewares/auth');
 const { PORT = 3000 } = process.env;
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-app.use(cors(allowedCors));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(requestLogger);
 
