@@ -87,10 +87,9 @@ export class Api {
 }
 
 const api = new Api({
-    url:'http://rutaizm15.nomoredomains.sbs/',
+    url:'http://api.rutaizm15.nomoredomains.sbs/',
     headers: {
-      authorization: "381dea00-c956-4a18-991b-777a11869f64",
-      "Content-Type":"application/json", 
+        "Content-Type":"application/json", 
     }
 });     
 
