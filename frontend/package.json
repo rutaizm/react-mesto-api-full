@@ -2,7 +2,7 @@
   "name": "mesto-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rutaizm.github.io/react-mesto-auth/",
+  
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -16,7 +16,7 @@
   },
   "scripts": {
     "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "deploy": "npm run build &&  scp -r ./build/* rutaizm@51.250.93.17:/home/rutaizm/react-mesto-api-full/mesto-frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

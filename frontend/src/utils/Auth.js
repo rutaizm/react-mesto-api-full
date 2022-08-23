@@ -42,7 +42,7 @@ export class Auth {
 }
 
 const auth = new Auth({
-    BASE_URL:'https://auth.nomoreparties.co',
+    BASE_URL:'http://rutaizm15.nomoredomains.sbs/',
     headers: {
         'Content-Type': 'application/json'
     }
