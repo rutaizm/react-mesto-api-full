@@ -13,7 +13,6 @@ export class Auth {
 
     register (password, email) {
         return fetch(`${this._url}/signup`, {
-          credentials:"include",
           method: 'POST',
           headers: this._headers,
           body: JSON.stringify({password:password, email:email})
@@ -23,7 +22,6 @@ export class Auth {
 
     login (password, email) {
         return fetch(`${this._url}/signin`, {
-            credentials:"include",
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({password:password, email:email})
@@ -33,7 +31,6 @@ export class Auth {
 
     checkToken (token) {
         return fetch(`${this._url}/users/me`, {
-            credentials:"include",
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +42,7 @@ export class Auth {
 }
 
 const auth = new Auth({
-    BASE_URL:'http://api.rutaizm15.nomoredomains.sbs/',
+    BASE_URL:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
         'Content-Type': 'application/json'
     }

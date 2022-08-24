@@ -11,72 +11,87 @@ export class Api {
         return Promise.reject(`Алярма ${res.status}`);
     }
 
-    getInitialCards() {
+    getInitialCards(token) {
       return fetch(`${this._url}/cards`, {
-        credentials:"include",
-            headers: this._headers
+        method:"GET",
+        headers: {
+            ...this._headers,
+            Authorization: `Bearer ${token}`
+            }
         })
         .then(this._handleError);
     }
 
-    addCard(name, link, _id) {
+    addCard({name, link, _id}, token) {
         return fetch(`${this._url}/cards`, {
-            credentials:"include",
             method:"POST",
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
             body:JSON.stringify({name:name, link:link, _id:_id}),
         })
         .then(this._handleError); 
     }
 
-    deleteCard(_id) {
+    deleteCard(_id, token) {
         return fetch(`${this._url}/cards/${_id}`, {
-            credentials:"include",
             method:"DELETE",
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
         })
         .then(this._handleError); 
     }
 
-    getProfileInfo() {
+    getProfileInfo(token) {
         return fetch(`${this._url}/users/me`, {
-            credentials:"include",
-            headers: this._headers,
+            method:"GET",
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
         })
         .then(this._handleError); 
     }
 
-    editProfileInfo(name, about) {
+    editProfileInfo({name, about}, token) {
         return fetch(`${this._url}/users/me`, {
-            credentials:"include",
             method:"PATCH",
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
             body:JSON.stringify({name:name, about:about}),
         })
         .then(this._handleError); 
     }
 
-    addLike(_id) {
+    addLike(_id, token) {
         return fetch(`${this._url}/cards/${_id}/likes`, {
-            credentials:"include",
             method: 'PUT',
-            headers: this._headers
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
         })
           .then(this._handleError);
       }
 
-    deleteLike(_id) {
+    deleteLike(_id, token) {
         return fetch(`${this._url}/cards/${_id}/likes`, {
-            credentials:"include",
             method: 'DELETE',
-            headers: this._headers
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
         })
           .then(this._handleError);
     }
 
     addAvatar(link) {
         return fetch(`${this._url}/users/me/avatar`, {
-            credentials:"include",
             method:"PATCH",
             headers: this._headers,
             body:JSON.stringify({avatar:link}),
@@ -84,20 +99,21 @@ export class Api {
         .then(this._handleError); 
     }
 
-    changeLikeCardStatus(_id, isLiked) {
+    changeLikeCardStatus(_id, isLiked, token) {
         if (isLiked) {
-            return this.deleteLike(_id);
+            return this.deleteLike(_id, token);
         } else {
-            return this.addLike(_id);
+            return this.addLike(_id, token);
         }
     }    
 
 }
 
 const api = new Api({
-    url:'http://api.rutaizm15.nomoredomains.sbs/',
+    url:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
         "Content-Type":"application/json", 
+        'Accept': 'application/json',
     }
 });     
 
