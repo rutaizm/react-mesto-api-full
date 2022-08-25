@@ -26,7 +26,7 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar, renderLoading}) {
             isOpen={isOpen} 
             onClose={onClose}
             onSubmit={handleSubmit}
-            onUpdateAvatar={onUpdateAvatar}
+            // onUpdateAvatar={onUpdateAvatar}
             renderLoading={renderLoading}
             disabled={!formIsValid}
             name="addAvatarForm" 

@@ -90,10 +90,13 @@ export class Api {
           .then(this._handleError);
     }
 
-    addAvatar(link) {
+    addAvatar(link, token) {
         return fetch(`${this._url}/users/me/avatar`, {
             method:"PATCH",
-            headers: this._headers,
+            headers: {
+                ...this._headers,
+                Authorization: `Bearer ${token}`
+            },
             body:JSON.stringify({avatar:link}),
         })
         .then(this._handleError); 
