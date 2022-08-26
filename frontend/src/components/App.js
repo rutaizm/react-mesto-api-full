@@ -9,7 +9,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import PopupWithConfirmation from './PopupWithConfirmation';
-import { BrowserRouter, Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import auth from '../utils/Auth';
@@ -39,9 +39,16 @@ function App() {
 
     const [renderLoading, setRenderLoading] = React.useState(false);
 
-    const token = localStorage.getItem('jwt');
+    // const token = localStorage.getItem('jwt');
+
+    const [token, setToken] = React.useState('');
 
     React.useEffect(() => {
+        handleCheckToken();
+    }, []);
+        
+    React.useEffect(() => {
+        const token = localStorage.getItem('jwt');
         if (loggedIn) {
             Promise.all([
                 api.getProfileInfo(token),
@@ -52,17 +59,16 @@ function App() {
                     setCurrentUser(userInfo);
                     setUserEmail(userInfo.email);
                     setCards(cards);
+                    history.push("/");
                 })
                 .catch((err) => {
                     console.log(err)
                 });
-            }    
-          }, [loggedIn, token]);
-
-    React.useEffect(() => {
-        handleCheckToken();
-    }, []);
-        
+            }
+        if (!loggedIn) {
+            setCurrentUser({});
+        }  
+          }, [loggedIn]);
 
     function handleEditAvatarClick() {
         setEditAvatarPopupOpen(true);
@@ -119,6 +125,7 @@ function App() {
             .then((data) =>{
                 setLoggedIn(true);
                 localStorage.setItem('jwt', data.token); 
+                setToken(data.token);
                 history.push("/");
             })
             .catch((err) => {
@@ -129,12 +136,13 @@ function App() {
     }
 
     function handleCheckToken() {
+        const token = localStorage.getItem('jwt');
         if (token) {
+            setToken(token);
             auth.checkToken(token)
                 .then((data) => {
                     setLoggedIn(true);
-                    setUserEmail(data.email);
-                    console.log(data.data.email);                   
+                    setUserEmail(data.email);               
                     history.push("/");                    
                 })
                 .catch((err) => console.log(err)); 
@@ -142,9 +150,10 @@ function App() {
     }
 
     function handleLogout() {
+        localStorage.clear();
         setLoggedIn(false);
         setCurrentUser({});
-        localStorage.removeItem('jwt');
+        setToken('');
         history.push("/sign-in");
     }
 

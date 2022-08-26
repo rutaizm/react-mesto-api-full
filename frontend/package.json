@@ -16,7 +16,7 @@
   },
   "scripts": {
     "predeploy":"npm run build",
-    "deploy": "npm run build &&  scp -r ./build/* rutaizm@51.250.93.17:/home/rutaizm/react-mesto-api-full/mesto-frontend",
+    "deploy": "npm run build &&  scp -r ./build/* rutaizm@51.250.93.17:/home/rutaizm/react-mesto-api-full/frontend",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
