@@ -39,36 +39,53 @@ function App() {
 
     const [renderLoading, setRenderLoading] = React.useState(false);
 
-    // const token = localStorage.getItem('jwt');
-
     const [token, setToken] = React.useState('');
 
     React.useEffect(() => {
         handleCheckToken();
     }, []);
+
+    function getInitialData() {
+        const token = localStorage.getItem('jwt');
+        Promise.all([
+            api.getProfileInfo(token),
+            api.getInitialCards(token)
+        ])                    
+            .then((res) => {
+                const [userInfo, cards] = res;
+                setCurrentUser(userInfo);
+                setUserEmail(userInfo.email);
+                setCards(cards.reverse());
+                history.push("/");
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }
         
     React.useEffect(() => {
         const token = localStorage.getItem('jwt');
         if (loggedIn) {
-            Promise.all([
-                api.getProfileInfo(token),
-                api.getInitialCards(token)
-            ])                    
-                .then((res) => {
-                    const [userInfo, cards] = res;
-                    setCurrentUser(userInfo);
-                    setUserEmail(userInfo.email);
-                    setCards(cards);
-                    history.push("/");
-                })
-                .catch((err) => {
-                    console.log(err)
-                });
+            getInitialData();
+            // Promise.all([
+            //     api.getProfileInfo(token),
+            //     api.getInitialCards(token)
+            // ])                    
+            //     .then((res) => {
+            //         const [userInfo, cards] = res;
+            //         setCurrentUser(userInfo);
+            //         setUserEmail(userInfo.email);
+            //         setCards(cards.reverse());
+            //         history.push("/");
+            //     })
+            //     .catch((err) => {
+            //         console.log(err)
+            //     });
             }
         if (!loggedIn) {
             setCurrentUser({});
         }  
-          }, [loggedIn]);
+          }, [loggedIn]); 
 
     function handleEditAvatarClick() {
         setEditAvatarPopupOpen(true);
@@ -215,10 +232,12 @@ function App() {
     }
 
     function handleAddPlaceSubmit(card) {
+        const token = localStorage.getItem('jwt');
         setRenderLoading(true);
         api.addCard(card, token)
             .then((newCard) => {
             setCards([newCard, ...cards]);
+            getInitialData();
             closeAllPopups();
             })
             .catch((err) => {

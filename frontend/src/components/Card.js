@@ -21,7 +21,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
     function handleDeleteClick() {
         onCardDelete(card);
     }
-
+ 
     return(        
      <li className="element card">
          <img className="element__image" src={card.link} alt={card.name} onClick={handleClick} />

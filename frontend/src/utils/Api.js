@@ -22,14 +22,14 @@ export class Api {
         .then(this._handleError);
     }
 
-    addCard({name, link, _id}, token) {
+    addCard({name, link}, token) {
         return fetch(`${this._url}/cards`, {
             method:"POST",
             headers: {
                 ...this._headers,
                 Authorization: `Bearer ${token}`
             },
-            body:JSON.stringify({name:name, link:link, _id:_id}),
+            body:JSON.stringify({name:name, link:link}),
         })
         .then(this._handleError); 
     }
