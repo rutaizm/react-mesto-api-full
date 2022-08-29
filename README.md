@@ -3,4 +3,6 @@
   
 http://rutaizm15.nomoredomains.sbs/
 
+https://api.rutaizm15.nomoredomains.sbs
+
 Публичный IP 51.250.93.17

@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 const BadRequest = require('../utils/BadRequest');
 const NotFound = require('../utils/NotFound');
+const Forbidden = require('../utils/Forbidden');
 
 const getCard = (req, res, next) => {
   Card.find({})
@@ -29,7 +30,7 @@ const deleteCard = (req, res, next) => {
         return;
       }
       if (JSON.stringify(card.owner) !== JSON.stringify(req.user._id)) {
-        next(new BadRequest('Вы не можете удалить фотографию, созданную другим пользователем!'));
+        next(new Forbidden('Вы не можете удалить фотографию, созданную другим пользователем!'));
       } else {
         card.remove()
           .then(() => res.send({ message: 'Фотография удалена' }))
