@@ -89,7 +89,7 @@ const logout = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { name, about } = req.body;
   // eslint-disable-next-line function-paren-newline
-  User.findByIdAndUpdate(req.user._id,
+  User.findByIdAndUpdate(req.params.userId,
     { name, about },
     { new: true, runValidators: true },
   )
@@ -110,7 +110,7 @@ const updateUser = (req, res, next) => {
 
 const updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(req.params.userId, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         next(new NotFound('Пользователь не найден'));
