@@ -39,17 +39,14 @@ function App() {
 
     const [renderLoading, setRenderLoading] = React.useState(false);
 
-    const [token, setToken] = React.useState('');
-
     React.useEffect(() => {
         handleCheckToken();
     }, []);
 
     function getInitialData() {
-        const token = localStorage.getItem('jwt');
         Promise.all([
-            api.getProfileInfo(token),
-            api.getInitialCards(token)
+            api.getProfileInfo(),
+            api.getInitialCards()
         ])                    
             .then((res) => {
                 const [userInfo, cards] = res;
@@ -64,24 +61,9 @@ function App() {
     }
         
     React.useEffect(() => {
-        const token = localStorage.getItem('jwt');
         if (loggedIn) {
             getInitialData();
-            // Promise.all([
-            //     api.getProfileInfo(token),
-            //     api.getInitialCards(token)
-            // ])                    
-            //     .then((res) => {
-            //         const [userInfo, cards] = res;
-            //         setCurrentUser(userInfo);
-            //         setUserEmail(userInfo.email);
-            //         setCards(cards.reverse());
-            //         history.push("/");
-            //     })
-            //     .catch((err) => {
-            //         console.log(err)
-            //     });
-            }
+        }
         if (!loggedIn) {
             setCurrentUser({});
         }  
@@ -141,8 +123,6 @@ function App() {
         auth.login(data.password, data.email)
             .then((data) =>{
                 setLoggedIn(true);
-                localStorage.setItem('jwt', data.token); 
-                setToken(data.token);
                 history.push("/");
             })
             .catch((err) => {
@@ -153,30 +133,28 @@ function App() {
     }
 
     function handleCheckToken() {
-        const token = localStorage.getItem('jwt');
-        if (token) {
-            setToken(token);
-            auth.checkToken(token)
+        auth.checkToken()
                 .then((data) => {
                     setLoggedIn(true);
                     setUserEmail(data.email);               
                     history.push("/");                    
                 })
                 .catch((err) => console.log(err)); 
-        }
     }
 
-    function handleLogout() {
-        localStorage.clear();
-        setLoggedIn(false);
-        setCurrentUser({});
-        setToken('');
-        history.push("/sign-in");
+    function handleLogout() { 
+        auth.logout()
+            .then(() => {
+                setLoggedIn(false);
+                setCurrentUser({});
+                history.push("/sign-in");
+            })     
+            .catch((err) => console.log(err)); 
     }
 
     function handleUpdateUser(user) {
         setRenderLoading(true);
-        api.editProfileInfo(user, token)
+        api.editProfileInfo(user)
             .then((res) => {
                 setCurrentUser(res);
                 closeAllPopups();
@@ -191,7 +169,7 @@ function App() {
 
     function handleUpdateAvatar(link) {
         setRenderLoading(true);
-        api.addAvatar(link, token)
+        api.addAvatar(link)
             .then((res) => {
                 setCurrentUser(res);
                 closeAllPopups();
@@ -206,7 +184,7 @@ function App() {
 
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
-        api.changeLikeCardStatus(card._id, isLiked, token)
+        api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
             }) 
@@ -218,7 +196,7 @@ function App() {
     function handleCardDelete(e) {
         e.preventDefault();
         setRenderLoading(true);
-        api.deleteCard(deleteCard._id, token)
+        api.deleteCard(deleteCard._id)
             .then(() => {
             setCards((cards) => cards.filter((item) => item._id !== deleteCard._id));
             setConfirmationPopupOpen(false);
@@ -232,9 +210,8 @@ function App() {
     }
 
     function handleAddPlaceSubmit(card) {
-        const token = localStorage.getItem('jwt');
         setRenderLoading(true);
-        api.addCard(card, token)
+        api.addCard(card)
             .then((newCard) => {
             setCards([newCard, ...cards]);
             getInitialData();

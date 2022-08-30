@@ -24,26 +24,38 @@ export class Auth {
         return fetch(`${this._url}/signin`, {
             method: 'POST',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({password:password, email:email})
         })
         .then(this._handleError);
     }    
 
-    checkToken (token) {
+    checkToken () {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            }
+            },
+            credentials: 'include',
         })        
         .then(this._handleError);
         }
-}
+
+    logout () {
+        return fetch(`${this._url}/signout`, {
+            method: 'GET',
+            headers: this._headers,
+            credentials: 'include',
+        })
+        .then(this._handleError);
+    }
+};    
 
 const auth = new Auth({
     BASE_URL:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 });    

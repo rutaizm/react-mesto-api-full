@@ -11,102 +11,86 @@ export class Api {
         return Promise.reject(`Алярма ${res.status}`);
     }
 
-    getInitialCards(token) {
+    getInitialCards() {
       return fetch(`${this._url}/cards`, {
         method:"GET",
-        headers: {
-            ...this._headers,
-            Authorization: `Bearer ${token}`
-            }
+        headers: this._headers,
+        credentials: 'include',
         })
         .then(this._handleError);
     }
 
-    addCard({name, link}, token) {
+    addCard({name, link}) {
         return fetch(`${this._url}/cards`, {
             method:"POST",
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
             body:JSON.stringify({name:name, link:link}),
         })
         .then(this._handleError); 
     }
 
-    deleteCard(_id, token) {
+    deleteCard(_id) {
         return fetch(`${this._url}/cards/${_id}`, {
             method:"DELETE",
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._handleError); 
     }
 
-    getProfileInfo(token) {
+    getProfileInfo() {
         return fetch(`${this._url}/users/me`, {
             method:"GET",
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._handleError); 
     }
 
-    editProfileInfo({name, about}, token) {
+    editProfileInfo({name, about}) {
         return fetch(`${this._url}/users/me`, {
             method:"PATCH",
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
             body:JSON.stringify({name:name, about:about}),
         })
         .then(this._handleError); 
     }
 
-    addLike(_id, token) {
+    addLike(_id) {
         return fetch(`${this._url}/cards/${_id}/likes`, {
             method: 'PUT',
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
         })
           .then(this._handleError);
       }
 
-    deleteLike(_id, token) {
+    deleteLike(_id) {
         return fetch(`${this._url}/cards/${_id}/likes`, {
             method: 'DELETE',
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
         })
           .then(this._handleError);
     }
 
-    addAvatar(link, token) {
+    addAvatar(link) {
         return fetch(`${this._url}/users/me/avatar`, {
             method:"PATCH",
-            headers: {
-                ...this._headers,
-                Authorization: `Bearer ${token}`
-            },
+            headers: this._headers,
+            credentials: 'include',
             body:JSON.stringify({avatar:link}),
         })
         .then(this._handleError); 
     }
 
-    changeLikeCardStatus(_id, isLiked, token) {
+    changeLikeCardStatus(_id, isLiked) {
         if (isLiked) {
-            return this.deleteLike(_id, token);
+            return this.deleteLike(_id);
         } else {
-            return this.addLike(_id, token);
+            return this.addLike(_id);
         }
     }    
 

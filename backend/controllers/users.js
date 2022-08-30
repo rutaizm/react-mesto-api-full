@@ -73,9 +73,17 @@ const login = (req, res, next) => {
         JWT_SECRET,
         { expiresIn: '7d' },
       );
-      res.send({ token });
+      res.cookie('jwt', token, {
+        maxAge: 3600000,
+        httpOnly: true,
+      })
+        .send({ message: 'Вы вошли в систему' });
     })
     .catch(next);
+};
+
+const logout = (req, res, next) => {
+  res.clearCookie('jwt').send({ message: 'Вы вышли из системы' }).catch(next);
 };
 
 const updateUser = (req, res, next) => {
@@ -133,5 +141,5 @@ const getCurrentUser = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers, getUser, createUser, updateUser, updateUserAvatar, login, getCurrentUser,
+  getUsers, getUser, createUser, updateUser, updateUserAvatar, login, getCurrentUser, logout,
 };
