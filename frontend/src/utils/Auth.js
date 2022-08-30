@@ -33,10 +33,7 @@ export class Auth {
     checkToken () {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
+            headers: this._headers,
             credentials: 'include',
         })        
         .then(this._handleError);
@@ -55,7 +52,6 @@ export class Auth {
 const auth = new Auth({
     BASE_URL:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
-        'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 });    

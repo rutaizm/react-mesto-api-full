@@ -100,7 +100,6 @@ const api = new Api({
     url:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
         "Content-Type":"application/json", 
-        'Accept': 'application/json',
     }
 });     
 
