@@ -31,6 +31,8 @@ app.use(cors({
   origin: [
     'http://rutaizm15.nomoredomains.sbs/',
     'https://rutaizm15.nomoredomains.sbs/',
+    'http://api.rutaizm15.nomoredomains.sbs/',
+    'https://api.rutaizm15.nomoredomains.sbs/',
     'https://locahost:3000',
     'http://locahost:3000',
   ],
