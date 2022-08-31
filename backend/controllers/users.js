@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const BadRequest = require('../utils/BadRequest');
@@ -77,7 +77,8 @@ const login = (req, res, next) => {
         maxAge: 3600000,
         httpOnly: true,
       })
-        .send({ message: 'Вы вошли в систему' });
+        .send({ message: 'Вы вошли в систему' })
+        .end();
     })
     .catch(next);
 };

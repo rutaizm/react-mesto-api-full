@@ -2,7 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const Auth = require('../utils/Auth');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { JWT_SECRET = 'some-secret-key' } = process.env;
 
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     throw new Auth('Необходима авторизация!');
   }
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key');
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     throw new Auth('Необходима авторизация');
   }
