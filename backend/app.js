@@ -14,7 +14,7 @@ const routesUsers = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { login, createUser, logout } = require('./controllers/users');
 const { validationSignUp, validationSignIn } = require('./middlewares/validation');
-const { allowedCors } = require('./utils/allowedCors');
+// const { allowedCors } = require('./utils/allowedCors');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -27,7 +27,15 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors(allowedCors));
+app.use(cors({
+  origin: [
+    'http://rutaizm15.nomoredomains.sbs/',
+    'https://rutaizm15.nomoredomains.sbs/',
+    'https://locahost:3000',
+    'http://locahost:3000',
+  ],
+  credentials: true,
+}));
 
 app.use(requestLogger);
 
