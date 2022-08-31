@@ -19,11 +19,11 @@ function Header({loggedIn, onLogin, onRegistration, userEmail, onLogout}) {
                 <header className="header">
                  <img className="logo" src={logo} alt="логотип в шапке" />               
                   <nav className='header__nav'>
-                    {location.pathname==='/sign-up' && 
-                        <NavLink to="/sign-in" className="header__link" onChange={onLogin}>Войти</NavLink>
+                    {location.pathname==='/signup' && 
+                        <NavLink to="/signin" className="header__link" onChange={onLogin}>Войти</NavLink>
                     }
-                    {location.pathname==='/sign-in' && 
-                        <NavLink to="/sign-up" className="header__link" onChange={onRegistration}>Регистрация</NavLink>
+                    {location.pathname==='/signin' && 
+                        <NavLink to="/signup" className="header__link" onChange={onRegistration}>Регистрация</NavLink>
                     }
                 </nav>
                 </header> 

@@ -14,6 +14,7 @@ export class Auth {
     register (password, email) {
         return fetch(`${this._url}/signup`, {
           method: 'POST',
+          credentials:'include',
           headers: this._headers,
           body: JSON.stringify({password:password, email:email})
         })
@@ -23,6 +24,7 @@ export class Auth {
     login (password, email) {
         return fetch(`${this._url}/signin`, {
             method: 'POST',
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({password:password, email:email})
         })

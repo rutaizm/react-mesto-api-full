@@ -108,7 +108,7 @@ function App() {
     function handleRegistration(data) {
         auth.register(data.password, data.email)
             .then((data) => {
-                history.push("/sign-in");
+                history.push("/signin");
                 setIsSuccess(true);
                 handleTooltip();
             })
@@ -147,7 +147,7 @@ function App() {
             .then(() => {
                 setLoggedIn(false);
                 setCurrentUser({});
-                history.push("/sign-in");
+                history.push("/signin");
             })     
             .catch((err) => console.log(err)); 
     }
@@ -234,12 +234,12 @@ return (
             onLogout={handleLogout}
         />
         <Switch>
-            <Route path="/sign-up">
+            <Route path="/signup">
                 <Register 
                     onRegistration={handleRegistration}
                 />
             </Route>
-            <Route path="/sign-in">
+            <Route path="/signin">
                 <Login 
                     onLogin={handleLogin}
                 />
