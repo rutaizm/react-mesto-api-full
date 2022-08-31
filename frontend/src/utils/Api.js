@@ -99,6 +99,7 @@ export class Api {
 const api = new Api({
     url:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
+        'Accept': 'application/json',
         "Content-Type":"application/json", 
     }
 });     

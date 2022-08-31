@@ -53,6 +53,7 @@ export class Auth {
 const auth = new Auth({
     BASE_URL:'https://api.rutaizm15.nomoredomains.sbs',
     headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 });    
